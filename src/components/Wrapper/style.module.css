@@ -1,0 +1,14 @@
+.wrapper{
+    position: relative;
+    top: 0;
+    height: 100vh;
+}
+
+.darkMode{
+    background-color: #1e1e2e;
+    color: #ececed;
+}
+
+.lightMode{
+    background-color: #ececed;
+}
