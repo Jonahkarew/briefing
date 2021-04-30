@@ -3,40 +3,45 @@ import { InputGroup, InputGroupAddon, InputGroupText, Input, Button } from 'reac
 
 
 function TwitterFeed() {
-    const [followList, setFollowList] = useState(["Nothing here yet"]);
+    const [followList, setFollowList] = useState([]);
     const [currentTwitterTerm, setCurrentTwitterTerm] = useState("");
 
 
-    // useEffect(() => {
-        
-    //     localStorage.getItem("twitterFeed")
-    //     if (TwitterFeed){
-    //         let tempList = JSON.parse(localStorage.getItem("twitterFeed"));
-    //         setFollowList(tempList)
-    //     }
-    //    else{
-    //        setFollowList(["POTUS"])
-    //    }
-    //   }, []);
+    useEffect(() => {
+        retrieveLocalTwitterTerms()
+      }, []);
 
     const setLocalTwitterTerms = () => {
-        let tempList = JSON.parse(localStorage.getItem("twitterFeed"));
-        tempList.push(currentTwitterTerm);
-        setFollowList(tempList);
-        localStorage.setItem("twitterFeed", JSON.stringify(tempList));
+        if (localStorage.getItem("twitterFeed") === null) {
+            setFollowList([])
+            localStorage.setItem("twitterFeed", "[]")
+        }
+        else {
+            console.log("is working")
+            let tempList = JSON.parse(localStorage.getItem("twitterFeed"));
+            tempList.push(currentTwitterTerm);
+            setFollowList(tempList);
+            localStorage.setItem("twitterFeed", JSON.stringify(tempList));
+            setCurrentTwitterTerm("")
+        }
     };
 
     const retrieveLocalTwitterTerms = () => {
-        let tempList = JSON.parse(localStorage.getItem("twitterFeed"));
-        setFollowList(tempList)
+        if (localStorage.getItem("twitterFeed") === null) {
+            localStorage.setItem("twitterFeed", "[]")
+        }
+        else {
+            let tempList = JSON.parse(localStorage.getItem("twitterFeed"));
+            setFollowList(tempList)
+        }
     };
 
     return (
         <div>
             <InputGroup>
-                <Input onChange={(e)=>{setCurrentTwitterTerm(e.target.value)}} placeholder="Add to follow list." />
+                <Input value={currentTwitterTerm} onChange={(e) => { setCurrentTwitterTerm(e.target.value) }} placeholder="Add to follow list." />
                 <InputGroupAddon addonType="append">
-                    <Button onClick={()=>{setLocalTwitterTerms()}} >
+                    <Button onClick={() => { setLocalTwitterTerms()}} >
                         Follow
                     </Button>
                 </InputGroupAddon>
@@ -44,6 +49,7 @@ function TwitterFeed() {
             <button onClick={retrieveLocalTwitterTerms}>click for tweets</button>
             <br />
             <h2>List of tweets</h2>
+            {/* terniary display of available tweets */}
             <ul>
                 {followList.map((follows) => (
                     <li key={follows}>{follows}</li>
