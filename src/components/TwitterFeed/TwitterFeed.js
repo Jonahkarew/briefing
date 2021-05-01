@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { InputGroup, InputGroupAddon, InputGroupText, Input, Button } from 'reactstrap';
+import { InputGroup, InputGroupAddon, Input, Button } from 'reactstrap';
 
 
 function TwitterFeed() {
@@ -9,7 +9,7 @@ function TwitterFeed() {
 
     useEffect(() => {
         retrieveLocalTwitterTerms()
-      }, []);
+    }, []);
 
     const setLocalTwitterTerms = () => {
         if (localStorage.getItem("twitterFeed") === null) {
@@ -17,7 +17,6 @@ function TwitterFeed() {
             localStorage.setItem("twitterFeed", "[]")
         }
         else {
-            console.log("is working")
             let tempList = JSON.parse(localStorage.getItem("twitterFeed"));
             tempList.push(currentTwitterTerm);
             setFollowList(tempList);
@@ -36,12 +35,13 @@ function TwitterFeed() {
         }
     };
 
+
     return (
         <div>
             <InputGroup>
                 <Input value={currentTwitterTerm} onChange={(e) => { setCurrentTwitterTerm(e.target.value) }} placeholder="Add to follow list." />
                 <InputGroupAddon addonType="append">
-                    <Button onClick={() => { setLocalTwitterTerms()}} >
+                    <Button onClick={() => { setLocalTwitterTerms() }} >
                         Follow
                     </Button>
                 </InputGroupAddon>
@@ -55,6 +55,7 @@ function TwitterFeed() {
                     <li key={follows}>{follows}</li>
                 ))}
             </ul>
+            <Button onClick={getUserId}>get twitter ids</Button>
         </div>
     )
 }
