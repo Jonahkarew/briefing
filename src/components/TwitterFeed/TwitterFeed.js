@@ -49,6 +49,8 @@ function TwitterFeed() {
             <button onClick={retrieveLocalTwitterTerms}>click for tweets</button>
             <br />
             <h2>List of tweets</h2>
+
+            
             {/* terniary display of available tweets */}
             <ul>
                 {followList.map((follows) => (
