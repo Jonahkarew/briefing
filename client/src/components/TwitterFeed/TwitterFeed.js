@@ -57,7 +57,7 @@ function TwitterFeed() {
                     <li key={follows}>{follows}</li>
                 ))}
             </ul>
-            <Button onClick={getUserId}>get twitter ids</Button>
+            {/* <Button onClick={getUserId}>get twitter ids</Button> */}
         </div>
     )
 }

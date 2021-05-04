@@ -4,8 +4,21 @@
   "description": "full morning briefing homepage",
   "main": "server.js",
   "scripts": {
-    "test": "npm test"
+    "start": "if-env NODE_ENV='production' && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\" ",
+    "install": "cd client && npm install",
+    "client": "cd client && npm run start",
+    "build": "cd client && npm run build"
   },
   "author": "Jonah Karew",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "if-env": "^1.0.4"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.2",
+    "nodemon": "^2.0.7"
+  }
 }
